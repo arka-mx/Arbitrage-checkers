@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/* Tokens: validated chart chrome + categorical slots 1-2 (see dataviz palette).
+   Components use the semantic names below, never raw hex. */
+:root {
+  color-scheme: light;
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --surface-2: #f2f1ed;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --line: rgba(11, 11, 11, 0.1);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --neutral-fill: #c3c2b7;
+  --good: #006300;
+  --warning: #fab219;
+  --warning-wash: #fdf3dc;
+  --warning-ink: #6b4a00;
+  --critical: #d03b3b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --surface-2: #232322;
+    --ink: #ffffff;
+    --ink-2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --line: rgba(255, 255, 255, 0.1);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --neutral-fill: #52514e;
+    --good: #0ca30c;
+    --warning: #fab219;
+    --warning-wash: #2b2415;
+    --warning-ink: #f5d58a;
+    --critical: #e66767;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --surface-2: #232322;
+  --ink: #ffffff;
+  --ink-2: #c3c2b7;
+  --muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --line: rgba(255, 255, 255, 0.1);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --neutral-fill: #52514e;
+  --good: #0ca30c;
+  --warning: #fab219;
+  --warning-wash: #2b2415;
+  --warning-ink: #f5d58a;
+  --critical: #e66767;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-grid: var(--grid);
+  --color-axis: var(--axis);
+  --color-line: var(--line);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-neutral-fill: var(--neutral-fill);
+  --color-good: var(--good);
+  --color-warning: var(--warning);
+  --color-warning-wash: var(--warning-wash);
+  --color-warning-ink: var(--warning-ink);
+  --color-critical: var(--critical);
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--series-1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

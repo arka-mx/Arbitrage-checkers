@@ -1,0 +1,268 @@
+[20:34:21 UTC] starting SPY: fetch every 300s, recompute every 120s (indicative feed, Ctrl+C to stop)
+[20:34:54 UTC] fetched 4929 clean quotes (indicative feed)
+[20:35:56 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[20:37:21 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[20:39:19 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[20:39:31 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:39:58 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f18a50>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:40:16 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:40:42 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19090>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:41:01 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:41:27 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19a90>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:41:47 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:42:13 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19e50>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:42:42 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f1a0d0>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:43:01 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:43:27 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f1a5d0>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:43:46 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:44:12 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e65ff12850>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:44:31 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:44:57 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e65ff12990>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:45:17 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:45:43 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f1a490>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:46:02 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:46:28 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19f90>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:46:47 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:47:13 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19310>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:47:32 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:47:58 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19590>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:48:17 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:48:44 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e65ff12d50>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:49:03 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:49:29 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e65ff13750>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:49:48 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:50:14 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19090>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:50:33 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:50:59 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19a90>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:51:18 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:51:44 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19e50>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:52:03 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:52:30 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f1a350>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:52:49 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:53:15 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e65ff12850>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:53:34 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:54:00 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e65ff12990>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:54:19 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:54:45 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f1a490>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:55:04 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:55:30 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19f90>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:55:49 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10053] An established connection was aborted by the software in your host machine"))
+[20:56:15 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by ConnectTimeoutError(<HTTPSConnection(host='paper-api.alpaca.markets', port=443) at 0x1e661f19310>, 'Connection to paper-api.alpaca.markets timed out. (connect timeout=None)'))
+[20:56:20 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NameResolutionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to resolve 'paper-api.alpaca.markets' ([Errno 11001] getaddrinfo failed)"))
+[20:56:25 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NameResolutionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to resolve 'paper-api.alpaca.markets' ([Errno 11001] getaddrinfo failed)"))
+[20:56:30 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NameResolutionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to resolve 'paper-api.alpaca.markets' ([Errno 11001] getaddrinfo failed)"))
+[20:56:42 UTC] fetch failed, retrying next tick: ("Connection broken: ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)", ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+[20:57:02 UTC] fetch failed, retrying next tick: ('Connection aborted.', ConnectionAbortedError(10053, 'An established connection was aborted by the software in your host machine', None, 10053, None))
+[20:57:08 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions"))
+[20:57:13 UTC] fetch failed, retrying next tick: HTTPSConnectionPool(host='paper-api.alpaca.markets', port=443): Max retries exceeded with url: /v2/options/contracts?underlying_symbols=SPY&status=active&expiration_date_lte=2026-11-29 (Caused by NewConnectionError("HTTPSConnection(host='paper-api.alpaca.markets', port=443): Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions"))
+[20:57:54 UTC] fetched 4929 clean quotes (indicative feed)
+[20:59:17 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:00:29 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:02:35 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:03:14 UTC] fetched 4929 clean quotes (indicative feed)
+[21:04:10 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:05:38 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:07:42 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:08:45 UTC] fetched 4929 clean quotes (indicative feed)
+[21:09:37 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:10:47 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:12:42 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:13:59 UTC] fetched 4929 clean quotes (indicative feed)
+[21:14:42 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:15:13 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:17:43 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:18:23 UTC] fetched 4929 clean quotes (indicative feed)
+[21:19:12 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:20:44 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:22:45 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:23:21 UTC] fetched 4929 clean quotes (indicative feed)
+[21:24:10 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:25:42 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:27:46 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:28:24 UTC] fetched 4929 clean quotes (indicative feed)
+[21:29:14 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:30:49 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:32:48 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:33:25 UTC] fetched 4929 clean quotes (indicative feed)
+[21:34:12 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:35:48 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:37:48 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:38:26 UTC] fetched 4929 clean quotes (indicative feed)
+[21:39:16 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:40:52 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:42:52 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:43:33 UTC] fetched 4929 clean quotes (indicative feed)
+[21:44:21 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:45:59 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:48:00 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:48:36 UTC] fetched 4929 clean quotes (indicative feed)
+[21:49:24 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:51:00 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:53:00 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:53:34 UTC] fetched 4929 clean quotes (indicative feed)
+[21:54:24 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:55:59 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:58:01 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[21:58:34 UTC] fetched 4929 clean quotes (indicative feed)
+[21:59:23 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:01:00 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:03:00 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:03:41 UTC] fetched 4929 clean quotes (indicative feed)
+[22:04:29 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:06:04 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:08:05 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:08:43 UTC] fetched 4929 clean quotes (indicative feed)
+[22:09:34 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:11:09 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:12:46 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:13:50 UTC] fetched 4929 clean quotes (indicative feed)
+[22:14:31 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:15:46 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:18:20 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:18:57 UTC] fetched 4929 clean quotes (indicative feed)
+[22:19:47 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:21:21 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:23:25 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:24:00 UTC] fetched 4929 clean quotes (indicative feed)
+[22:24:51 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:26:26 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:28:34 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:29:13 UTC] fetched 4929 clean quotes (indicative feed)
+[22:30:07 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:31:39 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:33:39 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:34:12 UTC] fetched 4929 clean quotes (indicative feed)
+[22:35:04 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:36:44 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:38:49 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:39:26 UTC] fetched 4929 clean quotes (indicative feed)
+[22:40:20 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:41:51 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:43:50 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:44:25 UTC] fetched 4929 clean quotes (indicative feed)
+[22:45:18 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:46:17 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:48:19 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:49:28 UTC] fetched 4929 clean quotes (indicative feed)
+[22:49:45 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:51:17 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:53:19 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:54:28 UTC] fetched 4929 clean quotes (indicative feed)
+[22:54:46 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:56:19 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:58:21 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[22:59:30 UTC] fetched 4929 clean quotes (indicative feed)
+[22:59:47 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:01:22 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:03:34 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:04:33 UTC] fetched 4929 clean quotes (indicative feed)
+[23:04:52 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:06:26 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:08:29 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:09:39 UTC] fetched 4929 clean quotes (indicative feed)
+[23:09:57 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:11:30 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:13:43 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:14:44 UTC] fetched 4929 clean quotes (indicative feed)
+[23:15:09 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:16:45 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:19:23 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:20:01 UTC] fetched 4929 clean quotes (indicative feed)
+[23:21:05 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:22:46 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:24:30 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:25:08 UTC] fetched 4929 clean quotes (indicative feed)
+[23:26:11 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:27:36 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:29:33 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:30:26 UTC] fetched 4929 clean quotes (indicative feed)
+[23:31:29 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:32:48 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:34:48 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:35:38 UTC] fetched 4929 clean quotes (indicative feed)
+[23:37:02 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:38:20 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:40:00 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:41:01 UTC] fetched 4929 clean quotes (indicative feed)
+[23:42:26 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:43:36 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:45:26 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:46:07 UTC] fetched 4929 clean quotes (indicative feed)
+[23:47:19 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:48:33 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:50:16 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:51:22 UTC] fetched 4929 clean quotes (indicative feed)
+[23:52:22 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:53:31 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:54:58 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:56:21 UTC] fetched 4929 clean quotes (indicative feed)
+[23:56:41 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[23:58:00 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:00:49 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:01:30 UTC] fetched 4929 clean quotes (indicative feed)
+[00:02:05 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:03:34 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:05:59 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:06:38 UTC] fetched 4929 clean quotes (indicative feed)
+[00:07:07 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:08:26 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:10:52 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:11:46 UTC] fetched 4929 clean quotes (indicative feed)
+[00:12:04 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:13:28 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:15:43 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:16:42 UTC] fetched 4929 clean quotes (indicative feed)
+[00:16:59 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:18:49 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:20:58 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:21:45 UTC] fetched 4929 clean quotes (indicative feed)
+[00:22:03 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:23:37 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:25:36 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:26:46 UTC] fetched 4929 clean quotes (indicative feed)
+[00:27:05 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:28:39 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:30:43 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:31:47 UTC] fetched 4929 clean quotes (indicative feed)
+[00:32:05 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:33:37 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:35:40 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:36:49 UTC] fetched 4929 clean quotes (indicative feed)
+[00:37:07 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:38:39 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:40:41 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:41:49 UTC] fetched 4929 clean quotes (indicative feed)
+[00:42:05 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:43:42 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:45:44 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:46:55 UTC] fetched 4929 clean quotes (indicative feed)
+[00:47:12 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:49:26 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:51:14 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:51:54 UTC] fetched 4929 clean quotes (indicative feed)
+[00:52:40 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:54:19 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:56:31 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:57:08 UTC] fetched 4929 clean quotes (indicative feed)
+[00:58:15 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[00:59:33 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:01:40 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:02:15 UTC] fetched 4929 clean quotes (indicative feed)
+[01:03:12 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:04:35 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:06:44 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:07:17 UTC] fetched 4929 clean quotes (indicative feed)
+[01:08:12 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:09:42 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:11:52 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:12:27 UTC] fetched 4929 clean quotes (indicative feed)
+[01:13:22 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:14:45 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:16:55 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:17:34 UTC] fetched 4929 clean quotes (indicative feed)
+[01:17:56 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:19:18 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:22:04 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:22:38 UTC] fetched 4929 clean quotes (indicative feed)
+[01:22:56 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
+[01:25:10 UTC] recomputed: IV 2136 rows, SVI 15 fits, arb 125/6192 survive
