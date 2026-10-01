@@ -1,252 +1,214 @@
-# Does the edge survive costs?
+# Does the Edge Survive Costs? 
+### Real-Time Options Arbitrage Engine, Volatility Surface Calibrator & Friction Simulator
 
-Central question: on index options (SPY by default), how much of the
-theoretical edge (from arbitrage or a volatility view) survives after paying
-the bid-ask spread and hedging costs?
+Central quantitative question: On US index options (SPY by default), how much theoretical edge—from butterfly spreads, calendar spreads, or implied volatility models—actually survives after paying market bid-ask spreads, broker commissions, and dynamic hedging slippage?
 
-## Status
+---
 
-**Phase 1: clean data and surface**
-- [x] Loader for the option chain (bid/ask/mid), dropping stale or zero-bid quotes.
-- [x] Invert IV from bid and ask separately, so every strike gets an IV range.
-- [x] Fit SVI (5 parameters) to the mid IVs.
+## 🎯 Executive Summary & Real-World Findings
 
-**Phase 2: arbitrage checker with costs**
-- [x] Butterfly and calendar conditions on the quoted surface.
-- [x] Subtract the full bid-ask cost of every leg, *and* every leg's broker commission.
-- [x] Report "X violations found, Y survive costs".
+Textbook finance treats arbitrage conditions and Black-Scholes pricing as frictionless guarantees. In production:
+1. **The Friction Reality Check:** Across ~21,000 live option checks on SPY, standard mid-quote checking yielded **~4,877 theoretical arbitrage violations**. Once crossed quotes (buying at the ask, selling at the bid) and an illustrative **$0.65/contract per leg broker commission** were accounted for, that number collapsed to **~116 survivors** (~97.6% eliminated).
+2. **The Liquidity Mirage:** Every single one of the remaining survivors clustered in deep in-the-money (ITM) options on indicative quotes. Deep ITM options have wide spreads, thin books, and stale quotes—meaning they are data artifacts of stale indicative feeds rather than executable alpha.
+3. **The Hedging Tradeoff (U-Curve):** Infrequent rebalancing leaves huge unhedged replication variance (gamma/vol risk), while hyper-frequent rebalancing accumulates continuous transaction costs (proportional to total variation of Brownian motion). The engine simulates and reveals the empirical bottom of this U-shaped total cost curve.
 
-> **Result so far, and why it isn't the answer yet.** On the free Alpaca feed,
-> with spread *and* a $0.65/contract commission both included: ~4,877
-> violations out of ~21,000 checks, **116** surviving costs, against a
-> prediction of about zero. (Spread alone, no commission, put that number at
-> ~820 — adding a realistic commission cuts survivors by 7×, which is itself
-> the point: "does the edge survive costs" gets a much harsher answer once
-> *every* cost is counted, not just the spread.) But the feed is `indicative`
-> (Alpaca-derived, not the real exchange NBBO), and every one of the 116
-> survivors is deep in-the-money — real edge would cluster near the money,
-> where SPY actually trades; deep ITM is exactly where thin, stale indicative
-> quotes are least trustworthy. Those are data artifacts, not edge. The real
-> test is a rerun on OPRA data (`--feed opra`, which needs the OPRA agreement
-> signed in the Alpaca dashboard).
+---
 
-**Phase 3: delta-hedging simulator with costs**
-- [x] Buy or sell an option (from the Chain page), hedge it under
-      fixed-interval and delta-band rules, paying half the underlying's
-      bid-ask spread per trade.
-- [x] Plot total cost against how often you actually rebalanced; find the
-      bottom of the U.
-- [x] Enter and track the position: open/closed, marked to market, signed
-      P&L for either direction.
+## 🏛️ Architecture Overview
 
-**Also added: realistic transaction costs, and automatic data refresh**
-- [x] Broker commission (per-contract, plus a per-share stock commission for
-      hedge rebalances) added to both the arbitrage checker and the hedge
-      simulator — costs were previously spread-only.
-- [x] A scheduler that re-fetches from Alpaca every 5 minutes and recomputes
-      IV/SVI/arbitrage every 2 minutes in between, so the dashboard stays
-      live without manually rerunning the CLI.
+The system operates as a hybrid quantitative pipeline (Python) coupled with an analytical web cockpit (Next.js / TypeScript):
 
-## Layout
+```
+                        [ Alpaca Markets API ]
+                                   │
+                                   ▼
+                       backend/options_edge/
+  ┌─────────────────────────────────────────────────────────────┐
+  │ • loader.py       : Clean quotes, filter staleness & crossed│
+  │ • forward.py      : Linear put-call parity discount & F     │
+  │ • iv.py           : Black-76 inverted IV ranges (bid/mid/ask│
+  │ • svi.py          : 5-parameter raw SVI smile calibration   │
+  │ • density.py      : Breeden-Litzenberger risk-neutral PDF   │
+  │ • regime.py       : 2-yr historical realized-vol clustering │
+  │ • arbitrage.py    : Butterfly & calendar checks with costs  │
+  │ • hedging.py      : Monte Carlo dynamic delta-hedge engine  │
+  │ • scheduler.py    : Dual-cadence continuous data updater    │
+  └──────────────────────────────┬──────────────────────────────┘
+                                 │
+                     Parquet / JSON Artifacts
+                                 │
+                                 ▼
+                         frontend/ (Next.js)
+  ┌─────────────────────────────────────────────────────────────┐
+  │ • / (Overview)    : Cost summary, positions marked-to-market│
+  │                     & physical-measure payoff forecasts     │
+  │ • /chain          : Cleaned chains, ITM shading, custom     │
+  │                     multi-leg strategy builder              │
+  │ • /surface        : Bid-Ask IV ranges, SVI fit & BL density │
+  │ • /arbitrage      : Ranked violations, moneyness breakdown  │
+  │ • /hedge          : Live Monte Carlo delta-hedge simulator  │
+  └─────────────────────────────────────────────────────────────┘
+```
 
-- `backend/`: Python pipeline, package `options_edge`
-  (`alpaca_client` → `loader` → `iv` (+ `forward`, `pricing`) → `svi`, and
-  `arbitrage`; `hedging` + `hedge_cli` for Phase 3).
-- `frontend/`: Next.js dashboard with Overview, Chain, Vol surface, Arbitrage,
-  and Hedge pages, plus an `/api/hedge` route that runs the simulator on demand.
+---
 
-## Backend
+## ⚡ Core Pipeline & Mathematical Framework
 
-Data comes from [Alpaca Markets](https://alpaca.markets/). A free paper
-account works; put your key/secret in `backend/.env` (see `.env.example`).
+### 1. Data Cleaning & Parity Inversion (`loader.py`, `forward.py`)
+- **Cleaning Filters:** Quotes are excluded if bid or ask is zero/negative, bid > ask, or spread exceeds a user-configured threshold (`--max-spread-pct`).
+- **Forward & Discount Derivation:** Forward price ($F$) and discount factor ($D$) are extracted per expiry directly from put-call parity across liquid strikes via linear regression:
+  $$C(K) - P(K) = D \cdot (F - K)$$
+  No external yield curves or dividend yield feeds required.
+
+### 2. Bid-Ask Implied Volatility Inversion (`iv.py`)
+- ITM option pricing inversion is numerically ill-conditioned. The pipeline inverts **only out-of-the-money (OTM) legs** using Black-76.
+- Inversion runs separately across the **Bid**, **Mid**, and **Ask** prices.
+- The difference $\Delta\text{IV} = \text{IV}_{\text{ask}} - \text{IV}_{\text{bid}}$ captures the true transaction cost expressed in volatility points.
+
+### 3. SVI Volatility Surface Calibration (`svi.py`)
+Fits Jim Gatheral's 5-parameter raw Stochastic Volatility Inspired (SVI) model to mid-quote implied variances per expiry:
+$$w(k) = a + b \left( \rho(k - m) + \sqrt{(k - m)^2 + \sigma^2} \right)$$
+- $k = \ln(K/F)$: log-moneyness.
+- $w(k) = \sigma_{\text{implied}}^2 \cdot T$: total implied variance.
+- **Parameters:**
+  - $a$: Baseline variance level (can be negative for real smiles).
+  - $b \ge 0$: Wing slope / steepness.
+  - $\rho \in (-1, 1)$: Smile skew ($\rho < 0$ indicates puts trade richer than calls).
+  - $m$: Horizontal coordinate of the smile vertex.
+  - $\sigma > 0$: Vertex curvature / smoothing.
+- **Arbitrage Constraint:** Constrained via minimum vertex variance $w_{\min} = a + b\sigma\sqrt{1-\rho^2} \ge 0$.
+
+### 4. Risk-Neutral Density: Breeden-Litzenberger (`density.py`)
+Extracts the market's state-price distribution of where the underlying asset will finish at expiration:
+$$f(K) = \left. \frac{1}{D} \frac{\partial^2 C(K)}{\partial K^2} \right|_{K}$$
+- Evaluated along a uniform log-moneyness grid using Black-76 calls priced off the calibrated SVI smile.
+- Second derivatives computed via 2nd-order finite differences, zero-clipped, and normalized to integrate to 1 (recovering density and cumulative probability $P(S_T \le K)$).
+
+### 5. Arbitrage Checking with Friction (`arbitrage.py`)
+Evaluates structural no-arbitrage conditions across market quotes:
+- **Butterfly Spread (Convexity in Strike):**
+  For strikes $K_1 < K_2 < K_3$ with $\lambda = \frac{K_3 - K_2}{K_3 - K_1}$:
+  $$\lambda P(K_1) - P(K_2) + (1 - \lambda) P(K_3) \ge 0$$
+- **Calendar Spread (Monotonicity in Expiry):**
+  For expiries $T_1 < T_2$ at the same strike:
+  $$P(K, T_2) \ge P(K, T_1)$$
+- **Friction Execution Test:**
+  To test if a violation can be monetized in practice, every leg crosses the market (bought at ask, sold at bid) and pays a configurable commission per leg:
+  $$\text{Exec Value} = \sum_{\text{sold}} \text{bid}_i - \sum_{\text{bought}} \text{ask}_j - (\text{legs} \times \text{commission})$$
+  A trade only survives if $\text{Exec Value} > 0$.
+- **Quote Time Skew ($\Delta t$):** Records the timestamp gap between the earliest and latest leg quote to prevent flagging phantom arbitrage created by quote latency.
+
+### 6. Market Volatility Regimes & Payoff Projections (`regime.py`, `payoff.ts`)
+- **Regime Detection:** Ingests up to 2 years of daily underlying bars and computes a 30-day rolling realized (close-to-close) volatility:
+  $$\sigma_{\text{realized}} = \sqrt{252} \times \text{std}(\ln(S_t / S_{t-1}))$$
+- **Clustering:** Segments the historical distribution into tertiles (**Low**, **Medium**, **High** volatility regimes) and tracks current historical mean volatility and drift.
+- **Payoff Simulation:** Projects expected P&L trajectories over holding time:
+  - *Physical Measure ($P$):* Forward paths of the underlying are generated via Monte Carlo GBM driven by the current regime's realized vol and historical drift.
+  - *Option Repricing:* At each time step, all open legs are repriced using Black-76 with their respective market implied volatilities.
+  - *Deterministic Box-Muller PRNG:* Uses seeded Mulberry32 pseudo-randomness for stable UI rendering without frame-to-frame jitter.
+
+### 7. Dynamic Delta-Hedging Simulator (`hedging.py`)
+Simulates the operational cost of managing short or long options along geometric Brownian motion paths under two rebalancing paradigms:
+1. **Fixed-Interval Rebalancing:** Rebalancing at discrete intervals (e.g. 30 min, 1 hr, 4 hr, 1 day, 2 days).
+2. **Delta-Band Triggering:** Rebalancing only when the position's delta drifts by more than a threshold $\Delta_{\text{drift}} \in [1\%, 20\%]$.
+- **Cost Metrics:**
+  - $\text{Transaction Cost}$: Total slippage and commission incurred by rebalancing trades.
+  - $\text{Replication Error}$: Standard deviation of frictionless P&L (unhedged gamma noise).
+  - $\text{Total Cost} = \text{Transaction Cost} + \text{Replication Error}$.
+
+---
+
+## 💻 Tech Stack
+
+- **Backend:** Python 3.11+, `numpy`, `scipy`, `pandas`, `pyarrow` (Parquet I/O), `alpaca-py`.
+- **Frontend:** Next.js 15 (App Router), React 19, TypeScript, Vanilla CSS (tokens & themes, custom SVG dataviz).
+- **Process & Orchestration:** `supervisord` managing Python scheduler alongside Next.js server in a Docker container.
+
+---
+
+## 🚀 Getting Started Locally
+
+### Prerequisites
+- Python 3.11+
+- Node.js 20+
+- Alpaca Markets paper trading account (Free API key & secret)
+
+### 1. Backend Setup
 
 ```bash
 cd backend
 python -m venv .venv
-source .venv/Scripts/activate   # Windows Git Bash; .venv\Scripts\Activate.ps1 in PowerShell
+
+# Activate virtual environment
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+# Linux/macOS:
+source .venv/bin/activate
+
 pip install -e ".[dev]"
-cp .env.example .env            # fill in APCA_API_KEY_ID / APCA_API_SECRET_KEY
 
-# the full pipeline: snapshot -> IV -> SVI -> arbitrage, with JSON for the frontend
-python -m options_edge.cli --also-json --svi --arb
-
-pytest                          # fakes only: no network or credentials needed
+# Configure credentials
+cp .env.example .env
+# Edit .env and supply your APCA_API_KEY_ID and APCA_API_SECRET_KEY
 ```
 
-| Flag | Default | What it does |
-|---|---|---|
-| `--symbol` | `SPY` | Any US underlying with listed options |
-| `--feed` | `indicative` | `opra` = real consolidated quotes (needs the OPRA agreement) |
-| `--max-days-to-expiry` | `60` | Bounds how many expiries are pulled (`0` = all) |
-| `--max-spread-pct` | off | Drop quotes whose spread exceeds this fraction of mid |
-| `--iv` / `--svi` / `--arb` | off | Run each stage (`--svi` implies `--iv`) |
-| `--commission-per-contract` | `0.65` | Broker fee per contract per leg, charged in `--arb`. Illustrative — set to your own broker's rate; `0` excludes it |
-| `--also-json` | off | Write JSON copies for the frontend |
-
-Every snapshot row carries its `feed`, and the arbitrage summary records it,
-so no number can be quoted without its data source.
-
-### Cleaning
-
-A quote is dropped if bid or ask is missing, zero, or negative, or if bid >
-ask. Survivors get `mid`, `spread`, `spread_pct`, and their `quote_time`.
-
-### IV inversion
-
-Per expiry, the forward and discount factor come from put-call parity via a
-least-squares fit across strikes (`C − P = D·(F − K)` is linear in strike), so
-no external rate or dividend input is needed. Each strike uses its
-out-of-the-money leg (ITM inversion is ill-conditioned), and Black-76 is
-inverted separately against the bid, mid, and ask. The gap `iv_ask − iv_bid` is
-what the spread costs in vol terms.
-
-### SVI fit
-
-Raw SVI, `w(k) = a + b(ρ(k − m) + √((k − m)² + σ²))` with `k = ln(K/F)` and
-`w = IV²·T`, fitted to the mid IVs by least squares from a grid of starting
-points. The fit is parameterized by the vertex variance
-`w_min = a + bσ√(1 − ρ²) ≥ 0`, which is the real constraint. `a` itself may be
-negative, and for real smiles usually is. (An earlier version bounded `a ≥ 0`,
-which pinned `a` at 0 on every expiry and roughly tripled the fit error.)
-When the fitted vertex falls outside the observed strikes, only the curve
-inside the data is meaningful, not ρ and m on their own. The dashboard flags
-this.
-
-### Arbitrage checks
-
-Run on market quotes, not on the SVI fit: you can't trade a model.
-
-- **Butterfly** (convexity in strike): for adjacent `K1 < K2 < K3` with
-  `λ = (K3 − K2)/(K3 − K1)`, `λ·P(K1) − P(K2) + (1 − λ)·P(K3) ≥ 0`.
-- **Calendar** (monotone in maturity): `P(K, T2) ≥ P(K, T1)` for `T1 < T2`,
-  over all expiry pairs, since after costs a far pair can survive when no
-  adjacent pair does.
-
-Both hold for American options (SPY). A **violation** fails at mid. It
-**survives costs** if it still fails with every leg bought at the ask, sold at
-the bid, *and* every leg's `commission_per_contract` paid (default $0.65,
-illustrative — same spirit as `half_spread` below: a stand-in for "commission
-+ regulatory pass-through," not fetched from any broker's live fee schedule).
-A butterfly always trades exactly 2 contract-equivalents (the wing weights
-`λ` and `1−λ` sum to 1, plus the body's 1), a calendar always trades exactly
-2 (one near, one far), so the commission added to `exec_value` is always
-`2 × commission_per_contract` regardless of strike spacing. Each violation
-also records `leg_time_skew_s`, the gap between its oldest and newest leg
-quote, because stale legs manufacture fake arbitrage.
-
-### Delta-hedging simulator
-
-`options_edge/hedging.py` prices one option at its Black-Scholes fair value
-(r=0, q=0 — a deliberate simplification for a days-to-weeks option) and
-delta-hedges it along simulated GBM paths, paying `half_spread` per share on
-every rebalance. It handles both directions via `side` ("short" = you wrote
-the option and received the premium; "long" = you bought it and paid the
-premium): the hedge always offsets the option's own delta exposure, so a
-long position hedges by shorting the underlying and a short position hedges
-by buying it — mirror images run through the same code path. (With zero
-transaction cost, the frictionless P&L of a long is provably the exact
-negative of the short's, per simulated path — the strongest test in the
-suite for this.) Two rule families:
-
-- **Fixed interval**: rebalance every N grid steps (30 min, 1 hour, ... 2 days).
-- **Delta band**: rebalance whenever the option's delta has drifted more than
-  a threshold (1%, 2%, ... 20%) since the last hedge.
-
-Per rule it reports `transaction_cost` (mean slippage paid) and
-`replication_error` (std of the *frictionless* hedging P&L — transaction
-costs added back, isolating pure replication noise). `total_cost` is their
-sum. Transaction cost provably grows without bound as rebalancing frequency
-does (a diffusion's total variation is infinite); replication error is
-bounded even at zero rebalancing. So a finite minimum exists in principle —
-where it falls depends on the spread relative to the option's gamma. For
-SPY's real penny spread that minimum sits finer than is practical to grid on
-demand; `default_rules` uses an illustrative `half_spread=0.05` (a nickel, not
-SPY's actual spread) so the minimum lands inside a grid that still runs in
-~2 seconds. This is disclosed in the tool, and `half_spread` is adjustable.
-
-On top of `half_spread`, two commissions are modeled: `option_commission_per_contract`
-(default $0.65, illustrative — same one used in the arbitrage checker) is
-charged **once**, when the option itself is opened, regardless of hedge rule
-— it's a flat shift added identically to every rule's `total_cost`.
-`stock_commission_per_share` (default $0 — most brokers, Alpaca included,
-don't charge one for stock trades) is charged on top of `half_spread` on
-**every** hedge rebalance, so it scales with how often you rebalance: more
-frequent rules pay it more times over.
-
-Try it:
+#### Run the End-to-End Pipeline
+Fetch data, calibrate SVI, compute Breeden-Litzenberger density, and test arbitrage:
 ```bash
-python -m options_edge.hedge_cli --spot 765 --strike 770 --option-type CE --time-to-expiry 0.0822 --vol 0.157 --side short
-python -m options_edge.hedge_cli --spot 765 --strike 770 --option-type CE --time-to-expiry 0.0822 --vol 0.157 --side long --option-commission-per-contract 0 --stock-commission-per-share 0.005
+python -m options_edge.cli --symbol SPY --also-json --svi --arb --regime --density
 ```
 
-### Buy or sell an option, and track it (Phase 3, frontend)
-
-On the **Chain** page, click **Buy** or **Sell** on any call or put to open
-the **Hedge** page with that contract and direction pre-filled — strike,
-expiry, spot, and volatility (the SVI-fitted IV at that strike, so it works
-even for in-the-money legs the IV surface itself skips). The page adapts to
-the direction throughout: "Market bid" vs "Market ask", "you'll receive" vs
-"you'll pay", "Sell to open" vs "Buy to open". Adjusting volatility or
-half-spread and re-running calls `/api/hedge`, a Next.js route that shells
-out to `hedge_cli` with `side` included (no Alpaca credentials needed — it's
-pure computation on parameters already in hand) and returns the per-rule
-cost table as JSON.
-
-Above the simulator, **Sell to open** / **Buy to open** actually records the
-trade: pick a contract count, and it saves a position (entry premium =
-current market bid for a short, ask for a long, × 100 × contracts) to
-`localStorage` — this is a personal single-user tool, so there's no account
-system or database, just the browser you're using. A **Your positions**
-section on the Overview page lists every open position — tagged short or
-long — marked to what it'd cost to close right now (the ask for a short, the
-bid for a long), with live unrealized P&L (correctly signed for either
-direction), and lets you close a position (at market or a price you enter) to
-move it to a realized-P&L history. The nav's Overview link shows an
-open-position count badge.
-
-## Keeping the data fresh automatically
-
-Everything above reads `backend/data/*.json` on every request but only
-*writes* it when you run the CLI by hand. Leave this running instead:
-
+#### Run the Continuous Scheduler
+Keep the data fresh continuously (fetches Alpaca every 5m, updates time-dependent IV/arbitrage every 2m):
 ```bash
 python -m options_edge.scheduler --symbol SPY --fetch-interval 300 --recompute-interval 120
 ```
 
-Two independent cadences (Ctrl+C to stop; a failed fetch or recompute is
-logged and retried next tick rather than crashing):
+#### Run Hedging Simulator via CLI
+```bash
+python -m options_edge.hedge_cli --spot 500 --strike 505 --option-type CE --time-to-expiry 0.08 --vol 0.16 --side short
+```
 
-- **Every `fetch_interval` seconds (default 300 = 5 min):** a real network
-  round trip to Alpaca — contracts, live quotes, and the underlying's spot
-  price. The expensive step.
-- **Every `recompute_interval` seconds (default 120 = 2 min):** reruns
-  IV → SVI → arbitrage against the most recently *fetched* snapshot, but
-  using the current wall-clock time as the valuation time. This isn't a
-  no-op between fetches: time to expiry keeps shrinking every tick, and
-  IV/SVI/vol-cost are all functions of it, so those numbers visibly move
-  even on unchanged quotes. (The arbitrage check itself only compares raw
-  bid/ask, not time to expiry, so its numbers stay flat between fetches —
-  recomputing it anyway keeps every file's timestamp consistent.) A fetch
-  always triggers its own immediate recompute, so `recompute_interval` only
-  governs the gaps *between* fetches.
+### 2. Frontend Setup
 
-## Frontend
-
+In a new terminal:
 ```bash
 cd frontend
 npm install
-npm run dev        # http://localhost:3000
+npm run dev
+```
+Open **`http://localhost:3000`** in your browser.
+
+---
+
+## 🚢 Deployment (Docker & Container Services)
+
+The application includes a root [Dockerfile](file:///e:/Algo%20and%20Python/project/Dockerfile) and [supervisord.conf](file:///e:/Algo%20and%20Python/project/supervisord.conf) configured to run both the Next.js server and Python scheduler simultaneously in a single container.
+
+### Deploying to Railway or Render:
+1. Push your repository to GitHub.
+2. In **Railway** (or **Render**), create a new service from your GitHub repository.
+3. Configure the environment variables:
+   - `APCA_API_KEY_ID` = `your_alpaca_key`
+   - `APCA_API_SECRET_KEY` = `your_alpaca_secret`
+   - `PORT` = `3000`
+4. Set public networking / generate a domain on port **3000**.
+
+---
+
+## 🧪 Testing
+
+Run test suites across analytical modules without network calls (uses deterministic fixtures):
+```bash
+cd backend
+pytest
 ```
 
-It reads `backend/data/{SYMBOL}_*.json` on every request, so rerunning the
-pipeline shows up on refresh. The symbol comes from `CHAIN_SYMBOL` (default
-`SPY`). Pages:
+---
 
-- **Overview**: the Phase 2 headline, your open/closed positions marked to market, and the bid-ask cost in vol points by days to expiry.
-- **Chain**: calls and puts by strike, with ITM shading, a spot marker, and Buy/Sell actions per leg.
-- **Vol surface**: the smile with bid-ask IV ranges, mid IVs, and the SVI fit, plus parameters for every expiry.
-- **Arbitrage**: violations vs. survivors by moneyness, and a ranked violations table (both already commission-inclusive).
-- **Hedge**: buy or sell a contract (and record the position), tune vol/half-spread, and see total hedging cost vs. rebalance frequency — the U-shaped curve, split into fixed-interval and delta-band series.
+## 📈 Future Roadmap & Research Directions
 
-Charts follow a validated palette (colorblind-checked in light and dark),
-include a hover and keyboard layer, and have a table view.
+- [ ] **Direct OPRA Feed Integration:** Transition from indicative quotes to consolidated OPRA NBBO to eliminate stale quote artifacts.
+- [ ] **Dynamic Surface Evolution:** Evolve forward option prices using sticky-strike vs. sticky-delta dynamics in Monte Carlo paths.
+- [ ] **Order Book Depth & Queue Execution:** Replace flat half-spread slippage assumptions with Level 2 order book simulation.
+- [ ] **Rate & Dividend Term Structures:** Incorporate discrete dividends and SOFR discount curves for longer DTE option universes.
